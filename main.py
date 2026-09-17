@@ -1,29 +1,34 @@
 from src.enviroment import buildMap, printMap
+from src.agent import Agent
 
 def main():
     filePath = "data/map_1.txt"
     
     try:
         myMap = buildMap(filePath)
-        printMap(myMap)
-
-        x = 0 
-        y = 0
-        for i in range (3):
-            testCell = myMap[x][y]
-            print(f"prueba de la celda ({x}, {y}):")
-            print(f"- tipo de celda: '{testCell.cellType}'")
-            print(f"- capacidad base: {testCell.baseCapacity}")
-            print(f"- costo actual: {testCell.getCurrentCost()}")
-            print(f"- accesible: {testCell.isWalkable()} \n")
-            x += 1 
-            y += 2
         
+        # agente id=1 en la posicion (1, 1)
+        testAgent = Agent(1, 1, 1)
+        print(f"\nagente id={testAgent.agentId} creado en la posicion: ({testAgent.x}, {testAgent.y})")
+        
+        # sacamos sus movimientos validos
+        validMoves = testAgent.getValidActions(myMap)
+        print(f"movimientos validos disponibles: {validMoves}")
+        
+        # usa el primer movimiento valido (despues dependera del algoritmo)
+        if validMoves:
+            nextX, nextY = validMoves[0]
+            testAgent.moveTo(nextX, nextY, myMap)
+            print(f"nueva posicion del agente: ({testAgent.x}, {testAgent.y})")
+        
+        # de nuevo los movimientos validos
+        validMoves = testAgent.getValidActions(myMap)
+        print(f"movimientos validos disponibles: {validMoves}")
+            
     except ValueError as error:
         print(error)
-
     except FileNotFoundError:
-        print(f"\nERROR: no se encontro el archivo '{filePath}'")
+        print(f"\nERROR: no se encontro el archivo '{filePath}'.")
 
 if __name__ == "__main__":
     main()
