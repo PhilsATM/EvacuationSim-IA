@@ -1,44 +1,5 @@
-capacities = {
-    '#': 0,           # muro, capacidad 0
-    '.': 3,           # espacio amplio, capacidad 3
-    '=': 2,           # pasillo normal, capacidad 2
-    '-': 1,           # pasillo angosto, capacidad 1
-    ';': 1,           # Puerta, capacidad 1
-    'E': float('inf') # Salida de evacuacion (sin limite)
-}
-
-class Cell:
-    def __init__(self, x, y, cellType, baseCapacity):
-        self.x = x
-        self.y = y
-        self.cellType = cellType
-        self.baseCapacity = baseCapacity
-        
-        self.currentAgents = 0
-        self.hasFire = False
-
-    def isWalkable(self):
-        # bloquea el paso si es muro o si el fuego ya consumio la casilla
-        if self.cellType == '#' or self.hasFire:
-            return False
-        return True
-
-    def getCurrentCost(self):
-        baseCost = 1
-        if not self.isWalkable():
-            return float('inf')
-        
-        # la salida no tiene costo
-        if self.cellType == 'E':
-            return baseCost
-            
-        # si se supera la capacidad fisica de la celda tiene penalizacion
-        if self.currentAgents >= self.baseCapacity:
-            # la penalizacion es cuadratica
-            penalty = (self.currentAgents - self.baseCapacity + 1) ** 2
-            return baseCost + penalty
-            
-        return baseCost
+from src.config import capacities
+from src.models import Cell
 
 def validMap(matrix, name="Mapa"):
     # que no este vacio el mapa

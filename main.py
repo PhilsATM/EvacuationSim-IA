@@ -1,11 +1,12 @@
-from src.enviroment import buildMap, printMap
-from src.agent import Agent
+from src.map_parser import buildMap, printMap
+from src.models import Agent
 
 def main():
     filePath = "data/map_1.txt"
     
     try:
         myMap = buildMap(filePath)
+        printMap(myMap)
         
         # agente id=1 en la posicion (1, 1)
         testAgent = Agent(1, 1, 1)
