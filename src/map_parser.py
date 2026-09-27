@@ -75,8 +75,8 @@ def buildMap(filePath):
     return matrix
 
 # imprime el mapa (debug)
-def printMap(matrix):
-    print("\n--- Visualizacion del Mapa Generado ---")
+def printMap(matrix, name="Mapa"):
+    print(f"\n--- {name} ---")
     for row in matrix:
         rowString = "".join([cell.cellType for cell in row])
         print(rowString)

@@ -1,31 +1,42 @@
 from src.map_parser import buildMap, printMap
-from src.models import Agent
+from src.algorithms.blinds import breadthFirstSearch, uniformCostSearch
 
 def main():
+
+    """
+    actualmente calculan la misma ruta al no tener congestion lol
+    """
+
     filePath = "data/map_1.txt"
+    filePath2 = "data/map_2.txt"
+    start = (1, 1)
     
     try:
         myMap = buildMap(filePath)
-        printMap(myMap)
-        
-        # agente id=1 en la posicion (1, 1)
-        testAgent = Agent(1, 1, 1)
-        print(f"\nagente id={testAgent.agentId} creado en la posicion: ({testAgent.x}, {testAgent.y})")
-        
-        # sacamos sus movimientos validos
-        validMoves = testAgent.getValidActions(myMap)
-        print(f"movimientos validos disponibles: {validMoves}")
-        
-        # usa el primer movimiento valido (despues dependera del algoritmo)
-        if validMoves:
-            nextX, nextY = validMoves[0]
-            testAgent.moveTo(nextX, nextY, myMap)
-            print(f"nueva posicion del agente: ({testAgent.x}, {testAgent.y})")
-        
-        # de nuevo los movimientos validos
-        validMoves = testAgent.getValidActions(myMap)
-        print(f"movimientos validos disponibles: {validMoves}")
-            
+        myMap2 = buildMap(filePath2)
+        printMap(myMap, "Mapa 1")
+        printMap(myMap2, "Mapa 2")
+
+        algorithms = {
+            "BFS": breadthFirstSearch,
+            "UCS": uniformCostSearch,
+        }
+        for name, algorithm in algorithms.items():
+            path = algorithm(myMap, start)
+            path2 = algorithm(myMap2, start)
+
+            if path:
+                print(f"\n{name} map 1: {path}")
+                print(f"movimientos: {len(path) - 1}")
+            else:
+                print(f"\n{name} map 1: no se encontro una ruta")
+
+            if path2:
+                print(f"\n{name} map 2: {path2}")
+                print(f"movimientos: {len(path2) - 1}")
+            else:
+                print(f"\n{name} map 2: no se encontro una ruta")
+
     except ValueError as error:
         print(error)
     except FileNotFoundError:
