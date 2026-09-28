@@ -1,41 +1,30 @@
+from src.config import agentCount, agentPositions as configuredAgentPositions, initialFireCount, initialFirePositions as configuredFirePositions, mapFiles, simulationSeed
 from src.map_parser import buildMap, printMap
 from src.algorithms.blinds import breadthFirstSearch, uniformCostSearch
+from src.simulation import createRandomAgentPositions, createRandomFirePositions, runSimulation
 
 def main():
+    algorithmRegistry = {
+        "BFS": breadthFirstSearch,
+        "UCS": uniformCostSearch
+    }
 
-    """
-    actualmente calculan la misma ruta al no tener congestion lol
-    """
-
-    filePath = "data/map_1.txt"
-    filePath2 = "data/map_2.txt"
-    start = (1, 1)
-    
     try:
-        myMap = buildMap(filePath)
-        myMap2 = buildMap(filePath2)
-        printMap(myMap, "Mapa 1")
-        printMap(myMap2, "Mapa 2")
+        for mapName, filePath in mapFiles.items():
+            mapMatrix = buildMap(filePath)
+            initialFirePositions = createRandomFirePositions(mapMatrix, initialFireCount, simulationSeed) + (configuredFirePositions or [])
+            agentPositions = createRandomAgentPositions(mapMatrix, agentCount, simulationSeed, initialFirePositions) + (configuredAgentPositions or [])
+            printMap(mapMatrix, mapName)
+            print(f"fuego inicial: {initialFirePositions}")
 
-        algorithms = {
-            "BFS": breadthFirstSearch,
-            "UCS": uniformCostSearch,
-        }
-        for name, algorithm in algorithms.items():
-            path = algorithm(myMap, start)
-            path2 = algorithm(myMap2, start)
-
-            if path:
-                print(f"\n{name} map 1: {path}")
-                print(f"movimientos: {len(path) - 1}")
-            else:
-                print(f"\n{name} map 1: no se encontro una ruta")
-
-            if path2:
-                print(f"\n{name} map 2: {path2}")
-                print(f"movimientos: {len(path2) - 1}")
-            else:
-                print(f"\n{name} map 2: no se encontro una ruta")
+            for algorithmName, algorithm in algorithmRegistry.items():
+                result = runSimulation(mapMatrix, agentPositions, algorithm, initialFirePositions, randomSeed=simulationSeed)
+                print(
+                    f"{algorithmName}: {result['evacuated']}/{len(agentPositions)} evacuados, "
+                    f"{result['dead']} bajas, {result['trapped']} atrapados, "
+                    f"{result['turns']} turnos, "
+                    f"ultimo evacuado en turno {result['evacuationTime']}"
+                )
 
     except ValueError as error:
         print(error)

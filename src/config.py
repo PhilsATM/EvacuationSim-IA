@@ -13,3 +13,20 @@ possibleMoves = [
 		(-1, 0), # izquierda
 		(1, 0),  # derecha
 ]
+
+mapFiles = {
+    # "Mapa 0": "data/map_0.txt"
+    "Mapa 1": "data/map_1.txt",
+    # "Mapa 2": "data/map_2.txt",
+    # "Mapa 3": "data/map_3.txt",
+}
+
+agentCount = 200                # cantidad de agentes (se generan de forma aleatoria)
+agentPositions = None           # posiciones iniciales manuales de los agentes
+congestionPenaltyWeight = 5.0   # peso de la penalizacion
+initialFireCount = 1            # cantidad de focos de incendio (se generan de forma aleatoria)
+initialFirePositions = None     # posiciones iniciales manuales de los fuegos
+fireSpreadInterval = 1          # cada cuantos turnos se puede propagar el fuego
+fireSpreadProbability = 0.5     # probabilidad de que el fuego se propague en cada intento
+maxSimulationTurns = None       # maximo de turnos de la simulacion, None: sin limite, cualquier otro valor: limite fijo
+simulationSeed = None           # semilla que define la posicion inicial de los agentes y de los focos, None: aleatoria, cualquier otro valor: semilla fija

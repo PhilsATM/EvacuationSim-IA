@@ -1,3 +1,6 @@
+from src.config import congestionPenaltyWeight
+
+
 class Cell:
     def __init__(self, x, y, cellType, baseCapacity):
         self.x = x
@@ -18,18 +21,12 @@ class Cell:
         baseCost = 1
         if not self.isWalkable():
             return float('inf')
-        
-        # la salida no tiene costo
+
         if self.cellType == 'E':
-            return baseCost
-            
-        # si se supera la capacidad fisica de la celda tiene penalizacion
-        if self.currentAgents >= self.baseCapacity:
-            # la penalizacion es cuadratica
-            penalty = (self.currentAgents - self.baseCapacity + 1) ** 2
-            return baseCost + penalty
-            
-        return baseCost
+            return 0
+
+        occupancyRate = self.currentAgents / self.baseCapacity
+        return baseCost + congestionPenaltyWeight * occupancyRate ** 2
 
 class Agent:
     def __init__(self, agentId, startX, startY):
@@ -37,6 +34,8 @@ class Agent:
         self.x = startX
         self.y = startY
         self.isEvacuated = False
+        self.isDead = False
+        self.isTrapped = False
         self.path = [] # lista de coordenadas (x, y)
 
     def moveTo(self, newX, newY, matrix):
