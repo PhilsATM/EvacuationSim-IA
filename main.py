@@ -1,12 +1,17 @@
+from functools import partial
+
 from src.config import agentCount, agentPositions as configuredAgentPositions, initialFireCount, initialFirePositions as configuredFirePositions, mapFiles, simulationSeed
 from src.map_parser import buildMap, printMap
 from src.algorithms.blinds import breadthFirstSearch, uniformCostSearch
+from src.algorithms.heuristics import aStarSearch, greedyBestFirstSearch
 from src.simulation import createRandomAgentPositions, createRandomFirePositions, runSimulation
 
 def main():
     algorithmRegistry = {
         "BFS": breadthFirstSearch,
-        "UCS": uniformCostSearch
+        "UCS": uniformCostSearch,
+        "A*": partial(aStarSearch, heuristicType="manhattan"),
+        "Greedy": partial(greedyBestFirstSearch, heuristicType="manhattan")
     }
 
     try:

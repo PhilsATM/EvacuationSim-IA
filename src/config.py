@@ -12,6 +12,12 @@ possibleMoves = [
 		(0, 1),  # abajo
 		(-1, 0), # izquierda
 		(1, 0),  # derecha
+
+        # diagonales (opcional) es mejor usar heuristica euclidiana o chebyshev si los activan
+        # (-1, -1), # diagonal superior izquierda
+        # (-1, 1),  # diagonal inferior izquierda
+        # (1, -1),  # diagonal superior derecha
+        # (1, 1)    # diagonal inferior derecha
 ]
 
 mapFiles = {
@@ -30,3 +36,4 @@ fireSpreadInterval = 1          # cada cuantos turnos se puede propagar el fuego
 fireSpreadProbability = 0.5     # probabilidad de que el fuego se propague en cada intento
 maxSimulationTurns = None       # maximo de turnos de la simulacion, None: sin limite, cualquier otro valor: limite fijo
 simulationSeed = None           # semilla que define la posicion inicial de los agentes y de los focos, None: aleatoria, cualquier otro valor: semilla fija
+heuristicType = "manhattan"     # tipo de heuristica: "manhattan", "euclidean", "chebyshev"
