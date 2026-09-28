@@ -4,7 +4,7 @@ from heapq import heappop, heappush
 
 from .utils import getExit, getNeighbors, reconstructPath, validateStart
 
-def breadthFirstSearch(matrix, start):
+def breadthFirstSearch(matrix, start, previousPath=None):
 	validateStart(matrix, start)
 	"""
 	se obtiene la posicion de la salida solo para verificar si la alcanzamos, no para calcular costos,
@@ -27,7 +27,7 @@ def breadthFirstSearch(matrix, start):
 				frontier.append(nextPosition) # agrega la celda vecina a la cola 
 	return []
 
-def uniformCostSearch(matrix, start):
+def uniformCostSearch(matrix, start, previousPath=None):
 	validateStart(matrix, start)
 	exit = getExit(matrix)
 	sequence = count()  # lo uso para manejar los empates de costos

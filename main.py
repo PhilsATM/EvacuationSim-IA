@@ -4,6 +4,7 @@ from src.config import agentCount, agentPositions as configuredAgentPositions, i
 from src.map_parser import buildMap, printMap
 from src.algorithms.blinds import breadthFirstSearch, uniformCostSearch
 from src.algorithms.heuristics import aStarSearch, greedyBestFirstSearch
+from src.algorithms.genetics import geneticSearch
 from src.simulation import createRandomAgentPositions, createRandomFirePositions, runSimulation
 
 def main():
@@ -11,7 +12,8 @@ def main():
         "BFS": breadthFirstSearch,
         "UCS": uniformCostSearch,
         "A*": partial(aStarSearch, heuristicType="manhattan"),
-        "Greedy": partial(greedyBestFirstSearch, heuristicType="manhattan")
+        "Greedy": partial(greedyBestFirstSearch, heuristicType="manhattan"),
+        "Genetico": partial(geneticSearch, randomSeed=simulationSeed),
     }
 
     try:

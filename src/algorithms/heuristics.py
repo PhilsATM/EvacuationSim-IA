@@ -24,7 +24,7 @@ def getHeuristic(position, goal, heuristicType="manhattan"):
 	return max(distance - 1, 0) # restamos 1 porque la salida no deberia tener costo
 
 
-def aStarSearch(matrix, start, heuristicType="manhattan"):
+def aStarSearch(matrix, start, heuristicType="manhattan", previousPath=None):
 	validateStart(matrix, start)
 	goal = getExit(matrix)
 	sequence = count() # para manejar el desempate en la cola de prioridad
@@ -51,7 +51,7 @@ def aStarSearch(matrix, start, heuristicType="manhattan"):
 	return []
 
 
-def greedyBestFirstSearch(matrix, start, heuristicType="manhattan"):
+def greedyBestFirstSearch(matrix, start, heuristicType="manhattan", previousPath=None):
 	validateStart(matrix, start)
 	goal = getExit(matrix)
 	sequence = count()
@@ -68,8 +68,7 @@ def greedyBestFirstSearch(matrix, start, heuristicType="manhattan"):
 			if nextPosition not in visited:
 				visited.add(nextPosition)
 				cameFrom[nextPosition] = position
-				# greedy prioriza solo la distancia, no el costo acumulado.
-				priority = getHeuristic(nextPosition, goal, heuristicType)
+				priority = getHeuristic(nextPosition, goal, heuristicType) # lo unico que cambia con respecto a A* es que no consideramos el costo acumulado
 				heappush(frontier, (priority, next(sequence), nextPosition))
 
 	return []
