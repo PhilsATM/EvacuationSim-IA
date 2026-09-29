@@ -11,23 +11,11 @@ Simulador multi-agente de evacuación ante un incendio; El sistema de navegació
 Se requiere Python 3.8 o superior. No se necesitan paquetes externos.
 
 Desde la carpeta del proyecto, ejecuta una simulación:
-
 ```bash
-python main.py
+python interface.py
 ```
-
-Para ejecutar el benchmark y guardar los resultados en `benchmark_results.csv`:
-
-```bash
-python benchmark.py
-```
-
-El benchmark ejecuta 100 iteraciones por mapa y algoritmo de forma predeterminada. Puedes cambiar la cantidad de iteraciones, la semilla y el archivo de salida:
-
-```bash
-python benchmark.py --iterations 200 --seed 42 --output benchmark_results.csv
-```
-O directamente cambiarlos en el archivo `src/config.py`, este también permite cambiar algunos otros parámetros del proyecto como: 
+ 
+El archivo `src/config.py` permite cambiar algunos parámetros del proyecto como: 
 
 - La cantidad y las posiciones iniciales de los agentes y los focos de fuego.
 - La frecuencia y probabilidad de propagación del fuego.
