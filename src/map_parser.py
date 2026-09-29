@@ -43,7 +43,7 @@ def validMap(matrix, name="Mapa"):
             f"[{name}] ERROR: el mapa debe contener una sola salida ('E'), actualmente tiene {exitCount}"
         )
 
-    print(f"[{name}] la matriz es valida ({rows}x{columns}) con 1 salida registrada.")
+    # print(f"[{name}] la matriz es valida ({rows}x{columns}) con 1 salida registrada.")
     return True
 
 def buildMap(filePath):
