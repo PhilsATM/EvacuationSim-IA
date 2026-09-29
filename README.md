@@ -44,3 +44,10 @@ El benchmark guarda los datos por iteración en un CSV; estos permiten calcular 
 - **A\*:** combina el costo de la ruta con una heurística de distancia.
 - **Greedy:** prioriza la cercanía a la salida.
 - **Genético:** evoluciona rutas mediante selección, cruce y mutación.
+
+
+## Interfaz
+
+Agregue una rama con una interfaz hecha por ia para este proyecto.
+
+Disclaimer: mi tarea es la rama main que se subio a tiempo, la interfaz fue solo por curiosidad y para que se viera bonito, fue totalmente hecha por la ia y no esta probada ni testeada de nada :P
